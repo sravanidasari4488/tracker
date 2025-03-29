@@ -1,0 +1,61 @@
+{
+  "expo": {
+    "packagerOpts": {
+      "dev": true,
+      "minify": false,
+      "urlRandomness": "some-random-value",
+      "httpServer": "http://localhost:8081"
+    },
+    "name": "Vit-ap",
+    "slug": "Vit-ap",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/bus2.png",
+    "scheme": "myapp",
+    "platforms": ["ios", "android"],
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.akhilesh.Vit-ap",
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "1036966591471-gg5qhjuc132bpqflieubu5ms52trgtft.apps.googleusercontent.com"
+        }
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#ffffff"
+      },
+      "googleServicesFile": "./google-services.json",
+      "config": {
+        "googleSignIn": {
+          "certificateHash": "D7:5B:AB:F4:50:D5:D3:21:E6:EA:05:BF:37:11:7E:9E:0F:D3:36:23",
+          "clientId": "1036966591471-2a1ai61lra8mpihktm5irqb6ak668sa3.apps.googleusercontent.com"
+        }
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "clientId": "1036966591471-eosv71b6i622hto2emvudsbfuvfld1c5.apps.googleusercontent.com",
+      "redirectUri": "https://auth.expo.io/@akhilesh26/Vit-ap"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
