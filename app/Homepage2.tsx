@@ -8,16 +8,48 @@ import {
   Animated,
   ScrollView,
   Linking,
+  Alert,
+  ImageResizeMode,
+  Button,
 } from "react-native";
 import { BlurView } from "expo-blur";
 import { Video } from "expo-av";
 import { useNavigation } from "@react-navigation/native";
-import { Ionicons } from "react-native-vector-icons";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { useAuth } from "@clerk/clerk-expo"; 
+import { useRouter } from "expo-router";
+import { Link, router } from "expo-router";
+
+type AppRoute =
+  | "busfaculty"
+  | "faculty"
+  | "HomePage"
+  | "Homepage2"
+  | "Login"
+  | "MapPage"
+  | "NextPage"
+  | "NextPage2"
+  | "ProfilePage"
+  | "PersonalDataPage"
+  | "AnalyticsPage"
+  | "FAaculty";
 
 const HomePage: React.FC = () => {
   const navigation = useNavigation();
+  const router = useRouter();
+  const { signOut } = useAuth();
   const [menuVisible, setMenuVisible] = React.useState(false);
   const menuAnimation = React.useRef(new Animated.Value(-300)).current;
+
+  const handleLogout = async () => {
+    try {
+      await signOut(); // Sign out the user
+      router.replace("/Login"); // Navigate back to login screen
+    } catch (err) {
+      Alert.alert("Logout Error", "Failed to sign out. Please try again.");
+      console.error("Logout error:", err);
+    }
+  };
 
   const toggleMenu = () => {
     const isClosing = menuVisible;
@@ -36,8 +68,10 @@ const HomePage: React.FC = () => {
     }
   };
 
-  const handleBoxPress = (page: string) => {
-    navigation.navigate(page);
+  const handleBoxPress = (page: AppRoute) => {
+    // Remove 'Page' suffix if present and convert to lowercase
+    const routeName = page.replace(/Page$/i, '').toLowerCase();
+    router.push(`/${"Login"}`);
   };
 
   const developers = [
@@ -84,10 +118,15 @@ const HomePage: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      {/* Profile Picture */}
-      <View style={styles.profileContainer}>
-        <Image source={require("@/assets/images/bus.png")} style={styles.profilePic} />
-      </View>
+    {/* Profile Picture with Logout Button */}
+    <View style={styles.profileContainer}>
+      <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
+        <Ionicons name="log-out-outline" size={24} color="#333" />
+      </TouchableOpacity>
+      <Image source={require("@/assets/images/bus.png")} style={styles.profilePic} />
+    </View>
+
+    
 
       {/* Menu Button */}
       {!menuVisible && (
